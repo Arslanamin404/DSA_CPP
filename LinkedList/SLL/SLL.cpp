@@ -185,7 +185,8 @@ void SLL::display()
     Node *temp = this->start;
     while (temp)
     {
-        cout << temp->data << " ";
+        cout << temp->data << " --> ";
         temp = temp->next;
     }
+    cout << "NULL" << endl;
 }
