@@ -28,11 +28,8 @@ Queue &Queue::operator=(const Queue &obj)
         return *this;
 
     // delete the nodes if already present in queue
-    while (front)
-    {
+    while (!is_empty())
         pop();
-        front = front->next;
-    }
 
     count = 0;
     Node *current = obj.front;
