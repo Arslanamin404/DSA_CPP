@@ -3,12 +3,7 @@
 
 using namespace std;
 
-Queue::Queue()
-{
-    front = nullptr;
-    rear = nullptr;
-    count = 0;
-}
+Queue::Queue() : front(nullptr), rear(nullptr), count(0) {}
 
 Queue::Queue(const Queue &obj)
 {
