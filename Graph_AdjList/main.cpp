@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     Graph g;
-
+    int src, dest;
     int choice;
     while (true)
     {
@@ -15,7 +15,9 @@ int main()
         cout << "2. Add Edge\n";
         cout << "3. Remove Edge\n";
         cout << "4. Print Graph\n";
-        cout << "5. Exit\n";
+        cout << "5. BFS\n";
+        cout << "6. DFS\n";
+        cout << "7. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -31,7 +33,6 @@ int main()
         }
         case 2:
         {
-            int src, dest;
             cout << "Enter source and destination vertices (u v): ";
             cin >> src >> dest;
             g.addEdge(src, dest);
@@ -39,7 +40,6 @@ int main()
         }
         case 3:
         {
-            int src, dest;
             cout << "Enter source and destination vertices to remove (u v): ";
             cin >> src >> dest;
             g.removeEdge(src, dest);
@@ -49,6 +49,18 @@ int main()
             g.printGraph();
             break;
         case 5:
+            cout << "Enter source vertex: ";
+            cin >> src;
+            cout << "\nBFS ORDER: ";
+            g.BFS(src);
+            break;
+        case 6:
+            cout << "Enter source vertex: ";
+            cin >> src;
+            cout << "\nDFS ORDER: ";
+            g.DFS(src);
+            break;
+        case 7:
             cout << "Exiting program.\n";
             return 0;
         default:

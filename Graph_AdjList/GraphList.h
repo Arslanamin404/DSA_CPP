@@ -42,9 +42,10 @@ public:
     void addEdge(int src, int dest);
     void removeEdge(int src, int dest);
     void printGraph();
-
+    void get_neighbours(int vertex);
     bool edgeExists(int src, int dest);
-
+    void BFS(int src);
+    void DFS(int src);
     ~Graph();
 };
 

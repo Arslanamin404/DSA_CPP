@@ -1,5 +1,7 @@
 #include <iostream>
 #include "GraphList.h"
+#include <queue>
+#include <stack>
 
 using namespace std;
 
@@ -167,6 +169,26 @@ void Graph::printGraph()
         cout << endl;
     }
 }
+void Graph::get_neighbours(int vertex)
+{
+    if (vertex >= v_count || vertex < 0)
+    {
+        cout << "INVALID VERTEX!" << endl;
+        return;
+    }
+    Node *temp = arr[vertex].getStart();
+    if (!temp)
+        cout << "None neighbour" << endl;
+    else
+    {
+        while (temp)
+        {
+            cout << temp->vertex << " ";
+            temp = temp->next;
+        }
+    }
+    cout << endl;
+}
 bool Graph::edgeExists(int src, int dest)
 {
     if (src < 0 || dest < 0 || src >= v_count || dest >= v_count)
@@ -176,5 +198,82 @@ bool Graph::edgeExists(int src, int dest)
     }
 
     return arr[src].search(dest) != nullptr;
+}
+void Graph::BFS(int src)
+{
+    if (src < 0 || src >= getVcount())
+    {
+        cout << "Invalid source vertex.\n";
+        return;
+    }
+    bool *visited = new bool[getVcount()](); // Initialize all to false
+
+    queue<int> Q;
+
+    Q.push(src);
+    visited[src] = true;
+
+    cout << "BFS Traversal stating from V" << src << endl;
+
+    while (!Q.empty())
+    {
+        int current = Q.front();
+        cout << current << " ";
+        Q.pop();
+
+        Node *temp = arr[current].getStart();
+        while (temp)
+        {
+            if (!visited[temp->vertex])
+            {
+                Q.push(temp->vertex);
+                visited[temp->vertex] = true;
+            }
+            temp = temp->next;
+        }
+    }
+    cout << endl;
+    delete[] visited;
+}
+void Graph::DFS(int src)
+{
+    if (src < 0 || src >= getVcount())
+    {
+        cout << "Invalid source vertex.\n";
+        return;
+    }
+    if (src < 0 || src >= getVcount())
+    {
+        cout << "Invalid source vertex.\n";
+        return;
+    }
+    bool *visited = new bool[getVcount()]();
+
+    stack<int> S;
+    S.push(src);
+
+    visited[src] = true;
+
+    cout << "DFS Traversal stating from V" << src << endl;
+    while (!S.empty())
+    {
+        int current = S.top();
+        cout << current << " ";
+        S.pop();
+
+        Node *temp = arr[current].getStart();
+
+        while (temp)
+        {
+            if (!visited[temp->vertex])
+            {
+                S.push(temp->vertex);
+                visited[temp->vertex] = true;
+            }
+            temp = temp->next;
+        }
+    }
+
+    delete[] visited;
 }
 Graph::~Graph() { delete[] arr; }
