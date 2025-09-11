@@ -3,6 +3,14 @@ using namespace std;
 
 class Problems
 {
+private:
+    void swap(int *a, int *b)
+    {
+        *a = *a + *b;
+        *b = *a - *b;
+        *a = *a - *b;
+    }
+
 public:
     void set_array(int *arr, int size)
     {
@@ -103,7 +111,17 @@ public:
     }
 
     // sorting
-    void selection_sort(int *arr, int size) {}
+    void selection_sort(int *arr, int size)
+    {
+        for (int i = 0; i < size - 1; i++)
+        {
+            for (int j = i + 1; j < size; j++)
+            {
+                if (arr[i] > arr[j])
+                    swap(&arr[i], &arr[j]);
+            }
+        }
+    }
 
     void bubble_sort(int *arr, int size) {}
 
@@ -139,8 +157,12 @@ int main()
     // int new_size = array_prblems.remove_dublicates_from_sorted(arr, size);
     // array_prblems.get_array(arr, new_size);
 
+    // array_prblems.print_line();
+    // array_prblems.left_rotate_by_one(arr, size);
+    // array_prblems.get_array(arr, size);
+
     array_prblems.print_line();
-    array_prblems.left_rotate_by_one(arr, size);
+    array_prblems.selection_sort(arr, size);
     array_prblems.get_array(arr, size);
     return 0;
 }
