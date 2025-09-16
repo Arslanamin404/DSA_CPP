@@ -3,14 +3,6 @@ using namespace std;
 
 class Problems
 {
-private:
-    void swap(int *a, int *b)
-    {
-        *a = *a + *b;
-        *b = *a - *b;
-        *a = *a - *b;
-    }
-
 public:
     void set_array(int *arr, int size)
     {
@@ -118,14 +110,35 @@ public:
             for (int j = i + 1; j < size; j++)
             {
                 if (arr[i] > arr[j])
-                    swap(&arr[i], &arr[j]);
+                    swap(arr[i], arr[j]);
             }
         }
     }
 
-    void bubble_sort(int *arr, int size) {}
+    void bubble_sort(int *arr, int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size - i - 1; j++)
+            {
+                if (arr[j] > arr[j + 1])
+                    swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
 
-    void insertion_sort(int *arr, int size) {}
+    void insertion_sort(int *arr, int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            int j = i;
+            while (j > 0 && arr[j - 1] > arr[j])
+            {
+                swap(arr[j - 1], arr[j]);
+                j--;
+            }
+        }
+    }
 
     void quick_sort(int *arr, int size) {}
 
@@ -161,8 +174,10 @@ int main()
     // array_prblems.left_rotate_by_one(arr, size);
     // array_prblems.get_array(arr, size);
 
-    array_prblems.print_line();
-    array_prblems.selection_sort(arr, size);
+    // array_prblems.print_line();
+    // array_prblems.selection_sort(arr, size);
+    // array_prblems.bubble_sort(arr, size);
+    array_prblems.insertion_sort(arr, size);
     array_prblems.get_array(arr, size);
     return 0;
 }
