@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
 class Problems
@@ -142,7 +144,52 @@ public:
 
     void quick_sort(int *arr, int size) {}
 
-    void merge_sort(int *arr, int size) {}
+    void merge_sort(int *arr, int start, int end)
+    {
+        if (start >= end)
+            return;
+        int mid = (start + end) / 2;
+        merge_sort(arr, start, mid);
+        merge_sort(arr, mid + 1, end);
+        merge(arr, start, mid, end);
+    }
+
+private:
+    void merge(int *arr, int start, int mid, int end)
+    {
+        vector<int> temp;
+        int i = start;
+        int j = mid + 1;
+        while (i <= mid && j <= end)
+        {
+            if (arr[i] <= arr[j])
+            {
+                temp.push_back(arr[i]);
+                i++;
+            }
+            else
+            {
+                temp.push_back(arr[j]);
+                j++;
+            }
+        }
+
+        // copy the rest of the elements
+        while (i <= mid)
+        {
+            temp.push_back(arr[i]);
+            i++;
+        }
+        while (j <= end)
+        {
+            temp.push_back(arr[j]);
+            j++;
+        }
+
+        // copy the temp array to the original array
+        for (int k = start; k <= end; k++)
+            arr[k] = temp[k - start];
+    }
 };
 
 int main()
@@ -174,10 +221,11 @@ int main()
     // array_prblems.left_rotate_by_one(arr, size);
     // array_prblems.get_array(arr, size);
 
-    // array_prblems.print_line();
+    array_prblems.print_line();
     // array_prblems.selection_sort(arr, size);
     // array_prblems.bubble_sort(arr, size);
-    array_prblems.insertion_sort(arr, size);
+    // array_prblems.insertion_sort(arr, size);
+    array_prblems.merge_sort(arr, 0, size - 1);
     array_prblems.get_array(arr, size);
     return 0;
 }
