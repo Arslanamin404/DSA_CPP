@@ -142,7 +142,15 @@ public:
         }
     }
 
-    void quick_sort(int *arr, int size) {}
+    void quick_sort(int *arr, int low, int high)
+    {
+        if (low < high)
+        {
+            int partition_idx = partition(arr, low, high);
+            quick_sort(arr, low, partition_idx - 1);
+            quick_sort(arr, partition_idx + 1, high);
+        }
+    }
 
     void merge_sort(int *arr, int start, int end)
     {
@@ -190,6 +198,28 @@ private:
         for (int k = start; k <= end; k++)
             arr[k] = temp[k - start];
     }
+
+    int partition(int *arr, int low, int high)
+    {
+        int pivot = arr[low];
+        int i = low, j = high;
+        while (i < j)
+        {
+            // Move i to the right until element > pivot
+            while (i <= high && arr[i] <= pivot)
+                i++;
+
+            // Move j to the left until element <= pivot
+            while (j >= low && arr[j] > pivot)
+                j--;
+
+            if (i < j)
+                swap(arr[i], arr[j]);
+        }
+        // place pivot in it correct position
+        swap(arr[low], arr[j]);
+        return j;
+    }
 };
 
 int main()
@@ -225,7 +255,8 @@ int main()
     // array_prblems.selection_sort(arr, size);
     // array_prblems.bubble_sort(arr, size);
     // array_prblems.insertion_sort(arr, size);
-    array_prblems.merge_sort(arr, 0, size - 1);
+    // array_prblems.merge_sort(arr, 0, size - 1);
+    array_prblems.quick_sort(arr, 0, size - 1);
     array_prblems.get_array(arr, size);
     return 0;
 }
