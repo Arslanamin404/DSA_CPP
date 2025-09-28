@@ -11,6 +11,7 @@ class SLL
 {
 private:
     Node *start;
+    Node *last;
     int count = 0;
 
 public:

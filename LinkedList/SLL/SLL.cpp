@@ -6,6 +6,8 @@ using namespace std;
 SLL::SLL()
 {
     this->start = nullptr;
+    this->last = nullptr;
+    this->count = 0;
 }
 
 // copy constructor
@@ -68,8 +70,9 @@ void SLL::insert_at_start(int data)
 {
     Node *new_node = new Node;
     new_node->data = data;
-    // if list is empty, new_node->next will point to nullptr
     new_node->next = this->start;
+    if (isEmpty())
+        this->last = new_node;
     this->start = new_node;
     this->count++;
 }
@@ -81,12 +84,8 @@ void SLL::insert_at_end(int data)
     if (isEmpty())
         this->start = new_node;
     else
-    {
-        Node *temp = this->start;
-        while (temp->next != nullptr)
-            temp = temp->next;
-        temp->next = new_node;
-    }
+        this->last->next = new_node;
+    this->last = new_node;
     this->count++;
 }
 
@@ -102,7 +101,8 @@ void SLL::insert_after(int source_data, int data)
     new_node->data = data;
     new_node->next = source_ptr->next;
     source_ptr->next = new_node;
-
+    if (source_ptr == this->last)
+        this->last = new_node;
     this->count++;
 }
 
@@ -113,18 +113,20 @@ void SLL::delete_at_start()
         cout << "delete_at_start() Failed! List is already empty." << endl;
         return;
     }
-    // to prevent memory leak
+
     Node *temp = this->start;
     this->start = temp->next;
     delete temp;
     this->count--;
+    if (this->start == nullptr)
+        this->last = nullptr;
 }
 
 void SLL::delete_at_end()
 {
     if (this->isEmpty())
     {
-        cout << "delete_at_start() Failed! List is already empty." << endl;
+        cout << "delete_at_end() Failed! List is already empty." << endl;
         return;
     }
 
@@ -132,7 +134,7 @@ void SLL::delete_at_end()
     if (this->start->next == nullptr)
     {
         delete this->start;
-        this->start = nullptr;
+        this->start = this->last = nullptr;
     }
     else
     {
@@ -143,6 +145,7 @@ void SLL::delete_at_end()
 
         delete temp->next;
         temp->next = nullptr;
+        this->last = temp;
     }
     this->count--;
 }
@@ -167,16 +170,19 @@ void SLL::delete_node(int data)
     if (this->start == data_ptr)
     {
         this->delete_at_start();
-    }
-    else
-    {
-        Node *temp = this->start;
-        while (temp->next != data_ptr)
-            temp = temp->next;
-        temp->next = data_ptr->next;
-        delete data_ptr;
+        return;
     }
 
+    Node *temp = this->start;
+    while (temp->next != data_ptr)
+        temp = temp->next;
+
+    temp->next = data_ptr->next;
+
+    if (data_ptr == this->last)
+        this->last = temp;
+
+    delete data_ptr;
     this->count--;
 }
 
