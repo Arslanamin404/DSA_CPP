@@ -106,6 +106,12 @@ void SLL::insert_after(int source_data, int data)
     this->count++;
 }
 
+void SLL::array_to_list(int *arr, int size)
+{
+    for (int i = 0; i < size; i++)
+        this->insert_at_end(arr[i]);
+}
+
 void SLL::delete_at_start()
 {
     if (this->isEmpty())

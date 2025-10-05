@@ -28,6 +28,8 @@ public:
     void insert_at_end(int data);
     void insert_after(int source, int data);
 
+    void array_to_list(int *arr, int size);
+
     void delete_at_start();
     void delete_at_end();
     void delete_node(int data);
