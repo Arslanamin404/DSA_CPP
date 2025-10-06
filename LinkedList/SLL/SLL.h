@@ -33,6 +33,7 @@ public:
     void insert_at_start(int data);
     void insert_at_end(int data);
     void insert_after(int source, int data);
+    void insert_at_position(int position, int data);
 
     void array_to_list(int *arr, int size);
 

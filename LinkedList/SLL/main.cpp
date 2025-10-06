@@ -11,12 +11,13 @@ void menu()
          << endl;
     cout << "[1] INSERT AT START" << endl;
     cout << "[2] INSERT AT END" << endl;
-    cout << "[3] INSERT AFTER" << endl;
-    cout << "[4] DELETE AT START" << endl;
-    cout << "[5] DELETE AT END" << endl;
-    cout << "[6] DELETE NODE" << endl;
-    cout << "[7] DISPLAY LIST" << endl;
-    cout << "[8] EXIT\n"
+    cout << "[3] INSERT AFTER NODE" << endl;
+    cout << "[4] INSERT AT POSITION" << endl;
+    cout << "[5] DELETE AT START" << endl;
+    cout << "[6] DELETE AT END" << endl;
+    cout << "[7] DELETE NODE" << endl;
+    cout << "[8] DISPLAY LIST" << endl;
+    cout << "[9] EXIT\n"
          << endl;
 }
 int main()
@@ -75,6 +76,22 @@ int main()
         }
         case 4:
         {
+            cout << "\nYOU SELECTED INSERT_AT_POSITION OPTION\n"
+                 << endl;
+            int position;
+            int value;
+            cout << "ENTER THE POSITION VALUE: ";
+            cin >> position;
+            cout << "ENTER VALUE TO INSERT: ";
+            cin >> value;
+            mySll.insert_at_position(position, value);
+            cout << "\nINSERT_AT_POSITION✅! Press any key to continue...";
+            cin.ignore();
+            cin.get();
+            break;
+        }
+        case 5:
+        {
             cout << "\nYOU SELECTED DELETE_AT_START OPTION\n"
                  << endl;
             mySll.delete_at_start();
@@ -83,7 +100,7 @@ int main()
             cin.get();
             break;
         }
-        case 5:
+        case 6:
         {
             cout << "\nYOU SELECTED DELETE_AT_END OPTION\n"
                  << endl;
@@ -93,7 +110,7 @@ int main()
             cin.get();
             break;
         }
-        case 6:
+        case 7:
         {
             cout << "\nYOU SELECTED DELETE_NODE OPTION\n"
                  << endl;
@@ -106,17 +123,17 @@ int main()
             cin.get();
             break;
         }
-        case 7:
+        case 8:
         {
             cout << "\nYOU SELECTED DISPLAY_LIST OPTION\n"
                  << endl;
             mySll.display();
-            cout << "\nDISPLAY_LIST✅! Press any key to continue...";
+            cout << "\n\nDISPLAY_LIST✅! Press any key to continue...";
             cin.ignore();
             cin.get();
             break;
         }
-        case 8:
+        case 9:
         {
             cout << "\nTHANK YOU FOR USING OUR LINKED LIST PROGRAM🎉\n"
                  << endl;

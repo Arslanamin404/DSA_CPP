@@ -103,6 +103,32 @@ void SLL::insert_after(int source_data, int data)
     this->count++;
 }
 
+void SLL::insert_at_position(int position, int data)
+{
+    if (position > this->length() || position < 0)
+    {
+        cout << "INVALID POSTITION!" << endl;
+        return;
+    }
+
+    Node *new_node = new Node(data);
+
+    if (position == 0)
+    {
+        this->insert_at_start(data);
+        return;
+    }
+
+    Node *temp = start;
+    for (int i = 1; i < position; i++)
+        temp = temp->next;
+
+    new_node->next = temp->next;
+    temp->next = new_node;
+
+    count++;
+}
+
 void SLL::array_to_list(int *arr, int size)
 {
     for (int i = 0; i < size; i++)
