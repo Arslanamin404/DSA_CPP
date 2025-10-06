@@ -5,16 +5,22 @@ struct Node
 {
     int data;
     Node *next = nullptr;
+    Node(int data)
+    {
+        this->data = data;
+        this->next = nullptr;
+    }
 };
 
 class SLL
 {
 private:
-    Node *start;
-    Node *last;
     int count = 0;
 
 public:
+    Node *start;
+    Node *last;
+
     SLL();
     SLL(const SLL &obj);
     SLL &operator=(const SLL &obj);

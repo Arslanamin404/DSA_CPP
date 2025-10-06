@@ -68,8 +68,7 @@ Node *SLL::search(int data) const
 
 void SLL::insert_at_start(int data)
 {
-    Node *new_node = new Node;
-    new_node->data = data;
+    Node *new_node = new Node(data);
     new_node->next = this->start;
     if (isEmpty())
         this->last = new_node;
@@ -79,8 +78,7 @@ void SLL::insert_at_start(int data)
 
 void SLL::insert_at_end(int data)
 {
-    Node *new_node = new Node;
-    new_node->data = data;
+    Node *new_node = new Node(data);
     if (isEmpty())
         this->start = new_node;
     else
@@ -97,8 +95,7 @@ void SLL::insert_after(int source_data, int data)
         cout << "insert_after() Failed! " << source_data << " not found in list" << endl;
         return;
     }
-    Node *new_node = new Node;
-    new_node->data = data;
+    Node *new_node = new Node(data);
     new_node->next = source_ptr->next;
     source_ptr->next = new_node;
     if (source_ptr == this->last)
