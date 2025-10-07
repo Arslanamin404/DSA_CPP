@@ -57,21 +57,138 @@ public:
             start = start->next;
         }
     }
+
+    /*
+    ? Given a Linked List, modify the list such that:
+    TODO: odd index nodes appear before the even index nodes in the modified list.
+    * Dont use extra space.
+    * |----------------------------------------------|
+    * | INPUT: 1 -> 3 -> 4 -> 12 -> 10 -> 9 -> NULL  |
+    * |----------------------------------------------|
+    * | OUTPUT: 1 -> 4 -> 10 -> 3 -> 12 -> 9 -> NULL |
+    * |----------------------------------------------|
+    */
+    Node *odd_and_even_list(Node *start)
+    {
+        if (start == nullptr || start->next == nullptr)
+            return start;
+
+        Node *odd_idx = start;
+        Node *even_idx = start->next;
+        Node *even_idx_head = start->next;
+
+        while (even_idx && even_idx->next)
+        {
+            odd_idx->next = odd_idx->next->next;
+            even_idx->next = even_idx->next->next;
+
+            odd_idx = odd_idx->next;
+            even_idx = even_idx->next;
+        }
+
+        odd_idx->next = even_idx_head;
+
+        return start;
+    }
+
+    /*
+    ? Given a Linked List containing only 0s, 1s, and 2s only,
+    TODO: rearrange the nodes so that all 0s come first, followed by 1s, then 2s.
+    * Do not use any extra space.
+    * |-----------------------------------------------|
+    * | INPUT:  2 -> 1 -> 0 -> 1 -> 2 -> 0 -> NULL    |
+    * |-----------------------------------------------|
+    * | OUTPUT: 0 -> 0 -> 1 -> 1 -> 2 -> 2 -> NULL    |
+    * |-----------------------------------------------|
+*/
+    Node *sort(Node *start)
+    {
+        // dummy nodes
+        Node *zero_head = new Node(-1);
+        Node *one_head = new Node(-1);
+        Node *two_head = new Node(-1);
+
+        Node *zero = zero_head;
+        Node *one = one_head;
+        Node *two = two_head;
+
+        if (start == nullptr || start->next == nullptr)
+            return start;
+
+        Node *temp = start;
+
+        while (temp)
+        {
+            if (temp->data == 0)
+            {
+                zero->next = temp;
+                zero = zero->next;
+            }
+            else if (temp->data == 1)
+            {
+                one->next = temp;
+                one = one->next;
+            }
+            else
+            {
+                two->next = temp;
+                two = two->next;
+            }
+            temp = temp->next;
+        }
+        zero->next = (one_head->next) ? one_head->next : two_head->next;
+        one->next = two_head->next;
+        two->next = nullptr;
+
+        Node *new_start = zero_head->next;
+
+        delete zero_head;
+        delete one_head;
+        delete two_head;
+
+        return new_start;
+    }
 };
 
 int main()
 {
-    Problems p = Problems();
-    int arr1[] = {3, 5};
-    int arr2[] = {4, 5, 9, 9};
+    Problems p;
 
-    SLL list_1 = SLL();
-    SLL list_2 = SLL();
+    cout << "\n===== Add Two Numbers Represented by Linked Lists =====" << endl;
+    int arr1[] = {3, 5};       // represents 53 (in reverse order: 5->3)
+    int arr2[] = {4, 5, 9, 9}; // represents 9954 (in reverse order)
 
-    list_1.array_to_list(arr1, (sizeof(arr1) / sizeof(int)));
-    list_2.array_to_list(arr2, (sizeof(arr2) / sizeof(int)));
+    SLL list1, list2;
+    list1.array_to_list(arr1, sizeof(arr1) / sizeof(int));
+    list2.array_to_list(arr2, sizeof(arr2) / sizeof(int));
 
-    Node *sum_list_start_node = p.add_two_numbers(list_1.start, list_2.start);
-    p.display_list(sum_list_start_node);
+    Node *sum_list = p.add_two_numbers(list1.start, list2.start);
+    cout << "Sum List: ";
+    p.display_list(sum_list);
+
+    cout << "\n\n===== Rearrange Odd and Even Index Nodes =====" << endl;
+    int arr3[] = {1, 3, 4, 12, 10, 9};
+    SLL list3;
+    list3.array_to_list(arr3, sizeof(arr3) / sizeof(int));
+
+    cout << "Original List: ";
+    p.display_list(list3.start);
+
+    Node *odd_even_head = p.odd_and_even_list(list3.start);
+    cout << "\nModified List: ";
+    p.display_list(odd_even_head);
+
+    cout << "\n\n===== Sort 0s, 1s, and 2s in Linked List =====" << endl;
+    int arr4[] = {2, 1, 0, 1, 2, 0};
+    SLL list4;
+    list4.array_to_list(arr4, sizeof(arr4) / sizeof(int));
+
+    cout << "Original List: ";
+    p.display_list(list4.start);
+
+    Node *sorted_head = p.sort(list4.start);
+    cout << "\nSorted List:   ";
+    p.display_list(sorted_head);
+
     return 0;
 }
