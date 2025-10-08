@@ -148,6 +148,22 @@ public:
 
         return new_start;
     }
+
+    Node *reverse(Node *start)
+    {
+        Node *prev = nullptr;
+        Node *current = start;
+        Node *next = nullptr;
+        while (current)
+        {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        start = prev;
+        return start;
+    }
 };
 
 int main()
@@ -189,6 +205,18 @@ int main()
     Node *sorted_head = p.sort(list4.start);
     cout << "\nSorted List:   ";
     p.display_list(sorted_head);
+
+    cout << "\n\n===== Reverse Linked List =====" << endl;
+    int arr5[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    SLL list5;
+    list5.array_to_list(arr5, sizeof(arr5) / sizeof(int));
+
+    cout << "Original List: ";
+    p.display_list(list5.start);
+
+    Node *reverse_list_head = p.reverse(list5.start);
+    cout << "\nReversed List: ";
+    p.display_list(reverse_list_head);
 
     return 0;
 }
